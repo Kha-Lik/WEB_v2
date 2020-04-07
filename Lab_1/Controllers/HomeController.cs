@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Lab_1.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Web_Lab_1.Models;
 
-namespace Web_Lab_1.Controllers
+namespace Lab_1.Controllers
 {
     public class HomeController : Controller
     {

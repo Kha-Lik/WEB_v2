@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace Web_Lab_1.Controllers
+namespace Lab_1.Controllers
 {
     public class NotDefaultController : Controller
     {
@@ -18,6 +19,7 @@ namespace Web_Lab_1.Controllers
             return View();
         }
 
+        
         public IActionResult ViewWithGetParam([FromQuery] string from)
         {
             string model = $"Get parameter was \"{from}\"";

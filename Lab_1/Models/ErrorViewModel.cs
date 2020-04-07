@@ -1,6 +1,6 @@
 using System;
 
-namespace Web_Lab_1.Models
+namespace Lab_1.Models
 {
     public class ErrorViewModel
     {
