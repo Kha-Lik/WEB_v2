@@ -7,6 +7,7 @@ namespace BLL.Interfaces
 {
     public interface ICommodityService
     {
+        IEnumerable<CommodityModel> GetAll();
         Task<CommodityModel> Search(string name);
         Task<IEnumerable<CommodityModel>> Search(int orderNum);
         Task<IEnumerable<CommodityModel>> Search(ShopModel shop);

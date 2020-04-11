@@ -16,5 +16,9 @@
       <PackageReference Include="SonarAnalyzer.CSharp" Version="8.6.0.16497" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Controllers" />
+    </ItemGroup>
+
 
 </Project>
