@@ -7,11 +7,11 @@ namespace BLL.Interfaces
 {
     public interface IOrderService
     {
-        Task<IEnumerable<PurchaseOrderModel>> GetAll();
-        Task<PurchaseOrderModel> Search(string name);
-        Task<IEnumerable<PurchaseOrderModel>> Search(DateTime date);
-        Task<IEnumerable<PurchaseOrderModel>> Search(int quantity);
-        Task MakeOrder(IEnumerable<CommodityModel> commoditis, ShopModel shop);
-        Task MakeOrder(IEnumerable<CommodityModel> commoditis, WarehouseModel warehouse);
+        IEnumerable<PurchaseOrderModel> GetAll();
+        PurchaseOrderModel Search(string name);
+        IEnumerable<PurchaseOrderModel> Search(DateTime date);
+        IEnumerable<PurchaseOrderModel> Search(int quantity);
+        Task MakeOrder(IEnumerable<CommodityModel> commodities, ShopModel shop, string name, int number);
+        Task MakeOrder(IEnumerable<CommodityModel> commodities, WarehouseModel warehouse, string name, int number);
     }
 }

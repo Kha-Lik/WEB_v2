@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Linq;
 using AutoMapper;
 using BLL.Interfaces;
 using BLL.Models;
@@ -28,24 +28,39 @@ namespace BLL.Services
             return commodityModels;
         }
 
-        public Task<CommodityModel> Search(string name)
+        public CommodityModel Search(string name)
         {
-            throw new NotImplementedException();
+            var commodities = _unit.CommodityRepository.GetAll();
+            var commodity = commodities.FirstOrDefault(x => x.Name.Equals(name));
+            var commodityModel = _mapper.Map<CommodityModel>(commodity);
+            return commodityModel;
         }
 
-        public Task<IEnumerable<CommodityModel>> Search(int orderNum)
+        public IEnumerable<CommodityModel> Search(int orderNum)
         {
-            throw new System.NotImplementedException();
+            var orders = _unit.PurchaseOrderRepository.GetAll();
+            var order = orders.FirstOrDefault(x => x.Number == orderNum);
+            var commodities = order.Commodities;
+            var commodityModels = _mapper.Map<IEnumerable<CommodityModel>>(commodities);
+            return commodityModels;
         }
 
-        public Task<IEnumerable<CommodityModel>> Search(ShopModel shop)
+        public IEnumerable<CommodityModel> Search(ShopModel shop)
         {
-            throw new System.NotImplementedException();
+            var shopEntity = _mapper.Map<Shop>(shop);
+            var commoditiesInShops = _unit.CommodityInShopRepository.GetAll();
+            var commoditiesInShop = commoditiesInShops.Where(x => x.Shop.Equals(shopEntity)).Select(x => x.Commodity);
+            var commodities = _mapper.Map<IEnumerable<CommodityModel>>(commoditiesInShop);
+            return commodities;
         }
 
-        public Task<IEnumerable<CommodityModel>> Search(WarehouseModel warehouse)
+        public IEnumerable<CommodityModel> Search(WarehouseModel warehouse)
         {
-            throw new System.NotImplementedException();
+            var warehouseEntity = _mapper.Map<Warehouse>(warehouse);
+            var commoditiesInWarehouses = _unit.CommodityInWarehoseRepository.GetAll();
+            var commoditiesInWarehouse = commoditiesInWarehouses.Where(x => x.Warehouse.Equals(warehouseEntity)).Select(x => x.Commodity);
+            var commodities = _mapper.Map<IEnumerable<CommodityModel>>(commoditiesInWarehouse);
+            return commodities;
         }
     }
 }
