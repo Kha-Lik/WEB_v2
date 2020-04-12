@@ -94,7 +94,7 @@ namespace dal.Migrations
                     b.ToTable("CommoditiesInWarehouse");
                 });
 
-            modelBuilder.Entity("DAL.Entities.PurchaseElement", b =>
+            modelBuilder.Entity("DAL.Entities.OrdersCommodities", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -209,7 +209,7 @@ namespace dal.Migrations
                         .HasForeignKey("WarehouseId");
                 });
 
-            modelBuilder.Entity("DAL.Entities.PurchaseElement", b =>
+            modelBuilder.Entity("DAL.Entities.OrdersCommodities", b =>
                 {
                     b.HasOne("DAL.Entities.Commodity", "Commodity")
                         .WithMany()

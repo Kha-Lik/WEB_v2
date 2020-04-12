@@ -1,6 +1,6 @@
 namespace DAL.Entities
 {
-    public class PurchaseElement : BaseEntity
+    public class OrdersCommodities : BaseEntity
     {
         public int CommodityId { get; set; }
         public int PurchaseOrderId { get; set; }

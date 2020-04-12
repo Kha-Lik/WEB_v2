@@ -11,7 +11,7 @@ namespace DAL
         public DbSet<CommodityInShop> CommoditiesInShop { get; set; }
         public DbSet<CommodityInWarehouse> CommoditiesInWarehouse { get; set; }
         public DbSet<PurchaseOrder> PurchaseOrders { get; set; }
-        public DbSet<PurchaseElement> PurchaseElements { get; set; }
+        public DbSet<OrdersCommodities> PurchaseElements { get; set; }
 
         public TurnoverDbContext(DbContextOptions<TurnoverDbContext> options) : base(options)
         {

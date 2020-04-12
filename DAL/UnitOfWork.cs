@@ -13,16 +13,16 @@ namespace DAL
             IRepository<Shop> shopRepository, 
             IRepository<Warehouse> warehouseRepository, 
             IRepository<CommodityInShop> commodityInShopRepository, 
-            IRepository<CommodityInWarehouse> commodityInWarehose, 
+            IRepository<CommodityInWarehouse> commodityInWarehoseRepository, 
             IRepository<PurchaseOrder> purchaseOrderRepository, 
-            IRepository<PurchaseElement> purchaseElementRepository)
+            IRepository<OrdersCommodities> purchaseElementRepository)
         {
             _context = context;
             CommodityRepository = commodityRepository;
             ShopRepository = shopRepository;
             WarehouseRepository = warehouseRepository;
             CommodityInShopRepository = commodityInShopRepository;
-            CommodityInWarehose = commodityInWarehose;
+            CommodityInWarehoseRepository = commodityInWarehoseRepository;
             PurchaseOrderRepository = purchaseOrderRepository;
             PurchaseElementRepository = purchaseElementRepository;
         }
@@ -31,9 +31,9 @@ namespace DAL
         public IRepository<Shop> ShopRepository { get; }
         public IRepository<Warehouse> WarehouseRepository { get; }
         public IRepository<CommodityInShop> CommodityInShopRepository { get; }
-        public IRepository<CommodityInWarehouse> CommodityInWarehose { get; }
+        public IRepository<CommodityInWarehouse> CommodityInWarehoseRepository { get; }
         public IRepository<PurchaseOrder> PurchaseOrderRepository { get; }
-        public IRepository<PurchaseElement> PurchaseElementRepository { get; }
+        public IRepository<OrdersCommodities> PurchaseElementRepository { get; }
         
         public async Task Save()
         {

@@ -9,9 +9,9 @@ namespace DAL.Interfaces
         public IRepository<Shop> ShopRepository { get; }
         public IRepository<Warehouse> WarehouseRepository { get; }
         public IRepository<CommodityInShop> CommodityInShopRepository { get; }
-        public IRepository<CommodityInWarehouse> CommodityInWarehose { get; }
+        public IRepository<CommodityInWarehouse> CommodityInWarehoseRepository { get; }
         public IRepository<PurchaseOrder> PurchaseOrderRepository { get; }
-        public IRepository<PurchaseElement> PurchaseElementRepository { get; }
+        public IRepository<OrdersCommodities> PurchaseElementRepository { get; }
 
         Task Save();
     }
