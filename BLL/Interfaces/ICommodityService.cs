@@ -10,7 +10,7 @@ namespace BLL.Interfaces
         IEnumerable<CommodityModel> GetAll();
         CommodityModel Search(string name);
         IEnumerable<CommodityModel> Search(int orderNum);
-        IEnumerable<CommodityModel> Search(ShopModel shop);
-        IEnumerable<CommodityModel> Search(WarehouseModel warehouse);
+        IEnumerable<CommodityModel> SearchByShopId(int shopId);
+        IEnumerable<CommodityModel> SearchByWarehouseId(int warehouseId);
     }
 }
