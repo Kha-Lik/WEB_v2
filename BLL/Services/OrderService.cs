@@ -36,7 +36,7 @@ namespace BLL.Services
             return orderModel;
         }
 
-        public IEnumerable<PurchaseOrderModel> Search(DateTime date)
+        public IEnumerable<PurchaseOrderModel> SearchByDate(DateTime date)
         {
             var orders = _unit.PurchaseOrderRepository.GetAll();
             orders = orders.Where(x => x.Date.Date == date.Date);
@@ -44,7 +44,7 @@ namespace BLL.Services
             return orderModels;
         }
 
-        public IEnumerable<PurchaseOrderModel> Search(int quantity)
+        public IEnumerable<PurchaseOrderModel> SearchByQuantity(int quantity)
         {
             var orders = _unit.PurchaseOrderRepository.GetAll();
             orders = orders.Where(x => x.Commodities.Count() == quantity);
@@ -60,6 +60,7 @@ namespace BLL.Services
             };
             var order = _mapper.Map<PurchaseOrder>(orderModel);
             await _unit.PurchaseOrderRepository.Create(order);
+            await _unit.Save();
         }
 
         public async Task MakeOrder(IEnumerable<CommodityModel> commodities, WarehouseModel warehouse, string name, int number)
@@ -70,6 +71,7 @@ namespace BLL.Services
             };
             var order = _mapper.Map<PurchaseOrder>(orderModel);
             await _unit.PurchaseOrderRepository.Create(order);
+            await _unit.Save();
         }
     }
 }

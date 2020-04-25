@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using BLL.Interfaces;
@@ -45,18 +44,18 @@ namespace BLL.Services
             return commodityModels;
         }
 
-        public IEnumerable<CommodityModel> Search(ShopModel shop)
+        public IEnumerable<CommodityModel> SearchByShopId(int shopId)
         {
-            var shopEntity = _mapper.Map<Shop>(shop);
+            var shopEntity = _unit.ShopRepository.GetById(shopId).Result;
             var commoditiesInShops = _unit.CommodityInShopRepository.GetAll();
             var commoditiesInShop = commoditiesInShops.Where(x => x.Shop.Equals(shopEntity)).Select(x => x.Commodity);
             var commodities = _mapper.Map<IEnumerable<CommodityModel>>(commoditiesInShop);
             return commodities;
         }
 
-        public IEnumerable<CommodityModel> Search(WarehouseModel warehouse)
+        public IEnumerable<CommodityModel> SearchByWarehouseId(int warehouseId)
         {
-            var warehouseEntity = _mapper.Map<Warehouse>(warehouse);
+            var warehouseEntity = _unit.WarehouseRepository.GetById(warehouseId).Result;
             var commoditiesInWarehouses = _unit.CommodityInWarehoseRepository.GetAll();
             var commoditiesInWarehouse = commoditiesInWarehouses.Where(x => x.Warehouse.Equals(warehouseEntity)).Select(x => x.Commodity);
             var commodities = _mapper.Map<IEnumerable<CommodityModel>>(commoditiesInWarehouse);
