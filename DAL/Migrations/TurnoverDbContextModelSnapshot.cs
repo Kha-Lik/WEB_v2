@@ -32,17 +32,23 @@ namespace dal.Migrations
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PurchaseOrderId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Units")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("PurchaseOrderId");
-
                     b.ToTable("Commodities");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Bread",
+                            Price = 20
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Wine",
+                            Price = 150
+                        });
                 });
 
             modelBuilder.Entity("DAL.Entities.CommodityInShop", b =>
@@ -65,6 +71,20 @@ namespace dal.Migrations
                     b.HasIndex("ShopId");
 
                     b.ToTable("CommoditiesInShop");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CommodityId = 1,
+                            ShopId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CommodityId = 2,
+                            ShopId = 2
+                        });
                 });
 
             modelBuilder.Entity("DAL.Entities.CommodityInWarehouse", b =>
@@ -77,10 +97,7 @@ namespace dal.Migrations
                     b.Property<int>("CommodityId")
                         .HasColumnType("int");
 
-                    b.Property<int>("StorageId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("WarehouseId")
+                    b.Property<int>("WarehouseId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -90,6 +107,20 @@ namespace dal.Migrations
                     b.HasIndex("WarehouseId");
 
                     b.ToTable("CommoditiesInWarehouse");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CommodityId = 2,
+                            WarehouseId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CommodityId = 1,
+                            WarehouseId = 2
+                        });
                 });
 
             modelBuilder.Entity("DAL.Entities.OrdersCommodities", b =>
@@ -112,6 +143,32 @@ namespace dal.Migrations
                     b.HasIndex("PurchaseOrderId");
 
                     b.ToTable("PurchaseElements");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CommodityId = 1,
+                            PurchaseOrderId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CommodityId = 2,
+                            PurchaseOrderId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CommodityId = 1,
+                            PurchaseOrderId = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CommodityId = 2,
+                            PurchaseOrderId = 2
+                        });
                 });
 
             modelBuilder.Entity("DAL.Entities.PurchaseOrder", b =>
@@ -123,6 +180,9 @@ namespace dal.Migrations
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Number")
                         .HasColumnType("int");
@@ -140,6 +200,22 @@ namespace dal.Migrations
                     b.HasIndex("WarehouseId");
 
                     b.ToTable("PurchaseOrders");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Date = new DateTime(2020, 4, 14, 23, 11, 23, 451, DateTimeKind.Local).AddTicks(3540),
+                            Name = "Sample order",
+                            Number = 1001
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Date = new DateTime(2020, 4, 14, 23, 11, 23, 454, DateTimeKind.Local).AddTicks(7434),
+                            Name = "Second sample order",
+                            Number = 10011001
+                        });
                 });
 
             modelBuilder.Entity("DAL.Entities.Shop", b =>
@@ -155,6 +231,18 @@ namespace dal.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Shops");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "ATB"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Rozetka"
+                        });
                 });
 
             modelBuilder.Entity("DAL.Entities.Warehouse", b =>
@@ -170,13 +258,18 @@ namespace dal.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Warehouses");
-                });
 
-            modelBuilder.Entity("DAL.Entities.Commodity", b =>
-                {
-                    b.HasOne("DAL.Entities.PurchaseOrder", null)
-                        .WithMany("Commodities")
-                        .HasForeignKey("PurchaseOrderId");
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "First warehouse"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Second warehouse"
+                        });
                 });
 
             modelBuilder.Entity("DAL.Entities.CommodityInShop", b =>
@@ -204,19 +297,21 @@ namespace dal.Migrations
 
                     b.HasOne("DAL.Entities.Warehouse", "Warehouse")
                         .WithMany()
-                        .HasForeignKey("WarehouseId");
+                        .HasForeignKey("WarehouseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("DAL.Entities.OrdersCommodities", b =>
                 {
                     b.HasOne("DAL.Entities.Commodity", "Commodity")
-                        .WithMany()
+                        .WithMany("Orders")
                         .HasForeignKey("CommodityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DAL.Entities.PurchaseOrder", "PurchaseOrder")
-                        .WithMany()
+                        .WithMany("Commodities")
                         .HasForeignKey("PurchaseOrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

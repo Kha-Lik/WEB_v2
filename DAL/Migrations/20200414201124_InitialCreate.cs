@@ -8,6 +8,20 @@ namespace dal.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Commodities",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true),
+                    Price = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Commodities", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Shops",
                 columns: table => new
                 {
@@ -31,56 +45,6 @@ namespace dal.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Warehouses", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PurchaseOrders",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Number = table.Column<int>(nullable: false),
-                    ShopId = table.Column<int>(nullable: true),
-                    WarehouseId = table.Column<int>(nullable: true),
-                    Date = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PurchaseOrders", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_PurchaseOrders_Shops_ShopId",
-                        column: x => x.ShopId,
-                        principalTable: "Shops",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_PurchaseOrders_Warehouses_WarehouseId",
-                        column: x => x.WarehouseId,
-                        principalTable: "Warehouses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Commodities",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true),
-                    Units = table.Column<int>(nullable: false),
-                    Price = table.Column<int>(nullable: false),
-                    PurchaseOrderId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Commodities", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Commodities_PurchaseOrders_PurchaseOrderId",
-                        column: x => x.PurchaseOrderId,
-                        principalTable: "PurchaseOrders",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -115,9 +79,8 @@ namespace dal.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    StorageId = table.Column<int>(nullable: false),
-                    CommodityId = table.Column<int>(nullable: false),
-                    WarehouseId = table.Column<int>(nullable: true)
+                    WarehouseId = table.Column<int>(nullable: false),
+                    CommodityId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -130,6 +93,35 @@ namespace dal.Migrations
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_CommoditiesInWarehouse_Warehouses_WarehouseId",
+                        column: x => x.WarehouseId,
+                        principalTable: "Warehouses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PurchaseOrders",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Number = table.Column<int>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    ShopId = table.Column<int>(nullable: true),
+                    WarehouseId = table.Column<int>(nullable: true),
+                    Date = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PurchaseOrders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PurchaseOrders_Shops_ShopId",
+                        column: x => x.ShopId,
+                        principalTable: "Shops",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_PurchaseOrders_Warehouses_WarehouseId",
                         column: x => x.WarehouseId,
                         principalTable: "Warehouses",
                         principalColumn: "Id",
@@ -162,10 +154,70 @@ namespace dal.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Commodities_PurchaseOrderId",
+            migrationBuilder.InsertData(
                 table: "Commodities",
-                column: "PurchaseOrderId");
+                columns: new[] { "Id", "Name", "Price" },
+                values: new object[,]
+                {
+                    { 1, "Bread", 20 },
+                    { 2, "Wine", 150 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "PurchaseOrders",
+                columns: new[] { "Id", "Date", "Name", "Number", "ShopId", "WarehouseId" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2020, 4, 14, 23, 11, 23, 451, DateTimeKind.Local).AddTicks(3540), "Sample order", 1001, null, null },
+                    { 2, new DateTime(2020, 4, 14, 23, 11, 23, 454, DateTimeKind.Local).AddTicks(7434), "Second sample order", 10011001, null, null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Shops",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "ATB" },
+                    { 2, "Rozetka" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Warehouses",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "First warehouse" },
+                    { 2, "Second warehouse" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "CommoditiesInShop",
+                columns: new[] { "Id", "CommodityId", "ShopId" },
+                values: new object[,]
+                {
+                    { 1, 1, 1 },
+                    { 2, 2, 2 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "CommoditiesInWarehouse",
+                columns: new[] { "Id", "CommodityId", "WarehouseId" },
+                values: new object[,]
+                {
+                    { 1, 2, 1 },
+                    { 2, 1, 2 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "PurchaseElements",
+                columns: new[] { "Id", "CommodityId", "PurchaseOrderId" },
+                values: new object[,]
+                {
+                    { 1, 1, 1 },
+                    { 2, 2, 1 },
+                    { 3, 1, 2 },
+                    { 4, 2, 2 }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_CommoditiesInShop_CommodityId",
