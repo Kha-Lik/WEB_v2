@@ -1,11 +1,10 @@
 using System;
-using System.Collections.Generic;
 using DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAL
 {
-    public class TurnoverDbContext : DbContext
+    public sealed class TurnoverDbContext : DbContext
     {
         public DbSet<Commodity> Commodities { get; set; }
         public DbSet<Shop> Shops { get; set; }

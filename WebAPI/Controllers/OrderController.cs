@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BLL.Interfaces;
 using BLL.Models;
 using Microsoft.AspNetCore.Mvc;
+
 namespace WebAPI.Controllers
 {
     [Produces("application/json")]
@@ -38,11 +39,19 @@ namespace WebAPI.Controllers
         public IActionResult MakeOrder(OrderPropertiesContainer container)
         {
             if (container.Shop != null)
-                return Ok(_orderService.MakeOrder(container.Commodities, container.Shop, container.Name,
-                    container.Number));
-            if (container.Warehouse != null) 
-                return Ok(_orderService.MakeOrder(container.Commodities, container.Warehouse, container.Name,
-                    container.Number));
+            {
+                _orderService.MakeOrder(container.Commodities, container.Shop, container.Name,
+                    container.Number);
+                return Ok();
+            }
+
+            if (container.Warehouse != null)
+            {
+                _orderService.MakeOrder(container.Commodities, container.Warehouse, container.Name,
+                    container.Number);
+                return Ok();
+            }
+
             return StatusCode(401);
         }
     }
