@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using BLL.Interfaces;
 using BLL.Mapper;
 using BLL.Services;
@@ -10,7 +6,6 @@ using DAL.Entities;
 using DAL.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -38,7 +33,8 @@ namespace MVC
                 .AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IOrderService, OrderService>()
                 .AddTransient<ICommodityService, CommodityService>()
-                .AddTransient<IUserService, UserService>();
+                .AddTransient<IUserService, UserService>()
+                .AddTransient<IEmailService, EmailService>();
             services.BindMapper();
             services.AddIdentity<User, IdentityRole>(opt =>
                 {
@@ -48,7 +44,9 @@ namespace MVC
                     opt.Password.RequireDigit = false;
                     opt.User.RequireUniqueEmail = true;
                 })
-                .AddEntityFrameworkStores<TurnoverDbContext>();
+                .AddEntityFrameworkStores<TurnoverDbContext>()
+                .AddDefaultTokenProviders();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Security.Claims;
+using System.Threading.Tasks;
 using AutoMapper;
 using BLL.Interfaces;
 using BLL.Models;
@@ -23,7 +24,6 @@ namespace BLL.Services
         {
             var user = _mapper.Map<User>(model);
             var result = await _unit.UserManager.CreateAsync(user, model.Password);
-
             return result;
         }
 
@@ -38,5 +38,21 @@ namespace BLL.Services
         {
             await _unit.SignInManager.SignOutAsync();
         }
+
+        public async Task<bool> IsEmailConfirmed(User user)
+        {
+            return await _unit.UserManager.IsEmailConfirmedAsync(user);
+        }
+
+        public async Task<IdentityResult> ConfirmEmailAsync(User user, string code)
+        {
+            return await _unit.UserManager.ConfirmEmailAsync(user, code);
+        }
+
+        public async Task<User> GetUserByClaims(ClaimsPrincipal claims)
+        {
+            return await _unit.UserManager.GetUserAsync(claims);
+        }
+
     }
 }

@@ -1,6 +1,9 @@
 ﻿using System.Threading.Tasks;
 using BLL.Interfaces;
 using BLL.Models;
+using BLL.Services;
+using DAL.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MVC.Controllers
@@ -8,10 +11,12 @@ namespace MVC.Controllers
     public class AccountController : Controller
     {
         private readonly IUserService _userService;
+        private readonly IEmailService _emailService;
 
-        public AccountController(IUserService userService)
+        public AccountController(IUserService userService, IEmailService emailService)
         {
             _userService = userService;
+            _emailService = emailService;
         }
 
         [HttpGet]
@@ -40,10 +45,49 @@ namespace MVC.Controllers
             
                 return View(model);
             }
-        
+
+            await _userService.Login(new UserLoginModel
+            {
+                Email = model.Email, Password = model.Password, RememberMe = true
+            });
+            var code = await _emailService.GenerateEmailConfirmationTokenAsync(model);
+            var callbackUrl = Url.Action(
+                "ConfirmEmail",
+                "Account",
+                new { code = code },
+                protocol: HttpContext.Request.Scheme);
+            await _emailService.SendEmailAsync(model.Email, "Confirm your account",
+                $"Подтвердите регистрацию, перейдя по ссылке: <a href='{callbackUrl}'>confirm email</a>");
+
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
+        
+        private async Task<User> GetCurrentUser()
+        {
+            return await _userService.GetUserByClaims(HttpContext.User);
+        }
     
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> ConfirmEmail(string code)
+        {
+            if (code == null)
+            {
+                return View("Error");
+            }
+
+            var user = await GetCurrentUser();
+            if (user == null)
+            {
+                return View("Error");
+            }
+            //TODO: fix code verification
+            var result = await _userService.ConfirmEmailAsync(user, code);
+            if(result.Succeeded)
+                return RedirectToAction("Index", "Home");
+            return View("Error");
+        }
+        
         [HttpGet]
         public IActionResult Login()
         {
