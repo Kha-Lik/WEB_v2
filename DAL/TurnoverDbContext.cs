@@ -9,7 +9,6 @@ namespace DAL
     {
         public TurnoverDbContext(DbContextOptions<TurnoverDbContext> options) : base(options)
         {
-            Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 

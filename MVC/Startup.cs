@@ -37,7 +37,8 @@ namespace MVC
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>))
                 .AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IOrderService, OrderService>()
-                .AddTransient<ICommodityService, CommodityService>();
+                .AddTransient<ICommodityService, CommodityService>()
+                .AddTransient<IUserService, UserService>();
             services.BindMapper();
             services.AddIdentity<User, IdentityRole>(opt =>
                 {
@@ -66,6 +67,8 @@ namespace MVC
 
             app.UseRouting();
 
+            app.UseAuthentication();
+            
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
