@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ContentModelStore">
     <e p="C:\Users\MykolaV\.Rider2019.3\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\MykolaV\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_Web_Lab_1.-330213382.00" t="ExcludeRecursive" />
-    <e p="C:\Users\MykolaV\RiderProjects\Web_Lab_1" t="IncludeFlat">
-      <e p="packages" t="ExcludeRecursive" />
-      <e p="Web_Lab_1" t="IncludeRecursive">
+    <e p="C:\Users\MykolaV\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_Web_Lab_1.1020929993.00" t="ExcludeRecursive" />
+    <e p="C:\Users\MykolaV\RiderProjects\Web_labs" t="IncludeFlat">
+      <e p="Lab_1" t="IncludeRecursive">
         <e p="appsettings.Development.json" t="Include" />
         <e p="appsettings.json" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
@@ -13,14 +12,15 @@
           <e p="HomeController.cs" t="Include" />
           <e p="NotDefaultController.cs" t="Include" />
         </e>
+        <e p="Lab_1.csproj" t="IncludeRecursive" />
         <e p="Models" t="Include">
           <e p="ErrorViewModel.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp3.1" t="Include">
-              <e p="Web_Lab_1.AssemblyInfo.cs" t="Include" />
-              <e p="Web_Lab_1.RazorAssemblyInfo.cs" t="Include" />
+              <e p="Lab_1.AssemblyInfo.cs" t="Include" />
+              <e p="Lab_1.RazorAssemblyInfo.cs" t="Include" />
             </e>
           </e>
         </e>
@@ -46,7 +46,6 @@
             <e p="Error.cshtml" t="Include" />
           </e>
         </e>
-        <e p="Web_Lab_1.csproj" t="IncludeRecursive" />
         <e p="wwwroot" t="Include">
           <e p="css" t="Include">
             <e p="site.css" t="Include" />
@@ -110,6 +109,7 @@
           </e>
         </e>
       </e>
+      <e p="packages" t="ExcludeRecursive" />
       <e p="Web_Lab_1.sln" t="IncludeFlat" />
     </e>
   </component>

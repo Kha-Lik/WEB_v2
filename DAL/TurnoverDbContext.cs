@@ -1,10 +1,11 @@
 using System;
 using DAL.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAL
 {
-    public sealed class TurnoverDbContext : DbContext
+    public sealed class TurnoverDbContext : IdentityDbContext<User>
     {
         public TurnoverDbContext(DbContextOptions<TurnoverDbContext> options) : base(options)
         {

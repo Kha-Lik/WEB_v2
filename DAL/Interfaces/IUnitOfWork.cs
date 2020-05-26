@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using DAL.Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace DAL.Interfaces
 {
@@ -12,7 +13,8 @@ namespace DAL.Interfaces
         public IRepository<CommodityInWarehouse> CommodityInWarehoseRepository { get; }
         public IRepository<PurchaseOrder> PurchaseOrderRepository { get; }
         public IRepository<OrdersCommodities> PurchaseElementRepository { get; }
-
+        public UserManager<User> UserManager { get;  }
+        public SignInManager<User> SignInManager { get;  }
         Task Save();
     }
 }

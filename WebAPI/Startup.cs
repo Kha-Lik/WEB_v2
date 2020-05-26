@@ -2,9 +2,11 @@ using BLL.Interfaces;
 using BLL.Mapper;
 using BLL.Services;
 using DAL;
+using DAL.Entities;
 using DAL.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -41,6 +43,15 @@ namespace WebAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "TurnoverWebAPI", Version = "v1"});
             });
+            services.AddIdentity<User, IdentityRole>(opt =>
+                {
+                    opt.Password.RequireUppercase = false;
+                    opt.Password.RequireNonAlphanumeric = false;
+                    opt.Password.RequiredLength = 4;
+                    opt.Password.RequireDigit = false;
+                    opt.User.RequireUniqueEmail = true;
+                })
+                .AddEntityFrameworkStores<TurnoverDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

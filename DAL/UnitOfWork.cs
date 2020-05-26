@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using DAL.Entities;
 using DAL.Interfaces;
+using Microsoft.AspNetCore.Identity;
 
 namespace DAL
 {
@@ -15,7 +16,7 @@ namespace DAL
             IRepository<CommodityInShop> commodityInShopRepository,
             IRepository<CommodityInWarehouse> commodityInWarehoseRepository,
             IRepository<PurchaseOrder> purchaseOrderRepository,
-            IRepository<OrdersCommodities> purchaseElementRepository)
+            IRepository<OrdersCommodities> purchaseElementRepository, UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _context = context;
             CommodityRepository = commodityRepository;
@@ -25,6 +26,8 @@ namespace DAL
             CommodityInWarehoseRepository = commodityInWarehoseRepository;
             PurchaseOrderRepository = purchaseOrderRepository;
             PurchaseElementRepository = purchaseElementRepository;
+            UserManager = userManager;
+            SignInManager = signInManager;
         }
 
         public IRepository<Commodity> CommodityRepository { get; }
@@ -34,6 +37,8 @@ namespace DAL
         public IRepository<CommodityInWarehouse> CommodityInWarehoseRepository { get; }
         public IRepository<PurchaseOrder> PurchaseOrderRepository { get; }
         public IRepository<OrdersCommodities> PurchaseElementRepository { get; }
+        public UserManager<User> UserManager { get;  }
+        public SignInManager<User> SignInManager { get;  }
 
         public async Task Save()
         {
