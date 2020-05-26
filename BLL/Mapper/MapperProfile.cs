@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using AutoMapper;
 using BLL.Models;
-using DAL;
 using DAL.Entities;
 
 namespace BLL.Mapper
@@ -18,7 +17,7 @@ namespace BLL.Mapper
                     opt.MapFrom(o => o.Commodities.Select(oc => oc.Commodity)));
             CreateMap<PurchaseOrderModel, PurchaseOrder>().ForMember(o => o.Commodities,
                 opt =>
-                    opt.MapFrom(o => o.Commodities.Select(c => new OrdersCommodities() {CommodityId = c.Id})));
+                    opt.MapFrom(o => o.Commodities.Select(c => new OrdersCommodities {CommodityId = c.Id})));
         }
     }
 }

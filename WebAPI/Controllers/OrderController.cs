@@ -39,7 +39,8 @@ namespace WebAPI.Controllers
         [HttpPost("MakeOrder")]
         public async Task<IActionResult> MakeOrder(OrderPropertiesContainer order)
         {
-            if ((order.ShopId != null && order.WarehouseId != null) && (order.ShopId != null || order.WarehouseId != null) )
+            if (order.ShopId != null && order.WarehouseId != null &&
+                (order.ShopId != null || order.WarehouseId != null))
                 return StatusCode(401);
             await _orderService.MakeOrderAsync(order);
             return Ok(order);

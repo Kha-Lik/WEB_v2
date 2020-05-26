@@ -13,7 +13,7 @@ namespace BLL.Models
         public int? ShopId { get; set; }
 
         public int? WarehouseId { get; set; }
-        
+
         public DateTime Date { get; set; }
     }
 }

@@ -11,8 +11,8 @@ namespace BLL.Services
     public class CommodityService : ICommodityService
 
     {
-        private readonly IUnitOfWork _unit;
         private readonly IMapper _mapper;
+        private readonly IUnitOfWork _unit;
 
         public CommodityService(IUnitOfWork unit, IMapper mapper)
         {

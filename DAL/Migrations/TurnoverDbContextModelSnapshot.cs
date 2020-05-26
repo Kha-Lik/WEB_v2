@@ -5,12 +5,11 @@ using DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace dal.Migrations
 {
     [DbContext(typeof(TurnoverDbContext))]
-    internal partial class TurnoverDbContextModelSnapshot : ModelSnapshot
+    internal class TurnoverDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {

@@ -8,11 +8,11 @@ namespace BLL.Interfaces
     public interface IOrderService
     {
         IEnumerable<PurchaseOrderModel> GetAll();
-        
+
         PurchaseOrderModel Search(string name);
-        
+
         IEnumerable<PurchaseOrderModel> SearchByDate(DateTime date);
-        
+
         IEnumerable<PurchaseOrderModel> SearchByQuantity(int quantity);
 
         Task MakeOrderAsync(OrderPropertiesContainer purchaseOrderModel);

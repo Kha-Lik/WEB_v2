@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -14,9 +13,9 @@ namespace BLL.Services
 {
     public class OrderService : IOrderService
     {
+        private readonly ICommodityService _commodityService;
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unit;
-        private readonly ICommodityService _commodityService;
 
         public OrderService(IUnitOfWork unit, IMapper mapper, ICommodityService commodityService)
         {
