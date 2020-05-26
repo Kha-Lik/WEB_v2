@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using BLL.Interfaces;
 using BLL.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -16,19 +17,19 @@ namespace WebAPI.Controllers
         {
             _orderService = orderService;
         }
-        
+
         [HttpGet("Get")]
         public ActionResult<IEnumerable<PurchaseOrderModel>> Get()
         {
             return Ok(_orderService.GetAll());
         }
-        
+
         [HttpGet("SearchByDate/{date}")]
         public ActionResult<IEnumerable<PurchaseOrderModel>> SearchByDate(DateTime date)
         {
             return Ok(_orderService.SearchByDate(date));
         }
-        
+
         [HttpGet("SearchByQuantity/{quantity}")]
         public ActionResult<IEnumerable<PurchaseOrderModel>> SearchByQuantity(int quantity)
         {
@@ -36,23 +37,12 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("MakeOrder")]
-        public IActionResult MakeOrder(OrderPropertiesContainer container)
+        public async Task<IActionResult> MakeOrder(OrderPropertiesContainer order)
         {
-            if (container.Shop != null)
-            {
-                _orderService.MakeOrder(container.Commodities, container.Shop, container.Name,
-                    container.Number);
-                return Ok();
-            }
-
-            if (container.Warehouse != null)
-            {
-                _orderService.MakeOrder(container.Commodities, container.Warehouse, container.Name,
-                    container.Number);
-                return Ok();
-            }
-
-            return StatusCode(401);
+            if ((order.ShopId != null && order.WarehouseId != null) && (order.ShopId != null || order.WarehouseId != null) )
+                return StatusCode(401);
+            await _orderService.MakeOrderAsync(order);
+            return Ok(order);
         }
     }
 }

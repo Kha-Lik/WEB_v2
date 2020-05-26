@@ -27,6 +27,21 @@ namespace BLL.Services
             return commodityModels;
         }
 
+        public CommodityModel GetById(int id)
+        {
+            var commodity = _unit.CommodityRepository.GetByIdAsync(id).Result;
+            return _mapper.Map<CommodityModel>(commodity);
+        }
+
+
+        public IEnumerable<CommodityModel> GetByIdCollection(params int[] idCollection)
+        {
+            var commodities = new List<Commodity>();
+            foreach (var id in idCollection) commodities.Add(_unit.CommodityRepository.GetByIdAsync(id).Result);
+
+            return _mapper.Map<IEnumerable<CommodityModel>>(commodities);
+        }
+
         public CommodityModel Search(string name)
         {
             var commodities = _unit.CommodityRepository.GetAll();
@@ -46,7 +61,7 @@ namespace BLL.Services
 
         public IEnumerable<CommodityModel> SearchByShopId(int shopId)
         {
-            var shopEntity = _unit.ShopRepository.GetById(shopId).Result;
+            var shopEntity = _unit.ShopRepository.GetByIdAsync(shopId).Result;
             var commoditiesInShops = _unit.CommodityInShopRepository.GetAll();
             var commoditiesInShop = commoditiesInShops.Where(x => x.Shop.Equals(shopEntity)).Select(x => x.Commodity);
             var commodities = _mapper.Map<IEnumerable<CommodityModel>>(commoditiesInShop);
@@ -55,9 +70,10 @@ namespace BLL.Services
 
         public IEnumerable<CommodityModel> SearchByWarehouseId(int warehouseId)
         {
-            var warehouseEntity = _unit.WarehouseRepository.GetById(warehouseId).Result;
+            var warehouseEntity = _unit.WarehouseRepository.GetByIdAsync(warehouseId).Result;
             var commoditiesInWarehouses = _unit.CommodityInWarehoseRepository.GetAll();
-            var commoditiesInWarehouse = commoditiesInWarehouses.Where(x => x.Warehouse.Equals(warehouseEntity)).Select(x => x.Commodity);
+            var commoditiesInWarehouse = commoditiesInWarehouses.Where(x => x.Warehouse.Equals(warehouseEntity))
+                .Select(x => x.Commodity);
             var commodities = _mapper.Map<IEnumerable<CommodityModel>>(commoditiesInWarehouse);
             return commodities;
         }

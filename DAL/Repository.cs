@@ -1,3 +1,5 @@
+using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using DAL.Entities;
@@ -20,12 +22,12 @@ namespace DAL
             return _set.AsQueryable();
         }
 
-        public async Task<TEntity> GetById(int id)
+        public async Task<TEntity> GetByIdAsync(int id)
         {
             return await _set.FindAsync(id);
         }
 
-        public async Task Create(TEntity entity)
+        public async Task CreateAsync(TEntity entity)
         {
             await _set.AddAsync(entity);
         }

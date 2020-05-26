@@ -16,31 +16,31 @@ namespace WebAPI.Controllers
         {
             _commodityService = commodityService;
         }
-        
+
         [HttpGet("Get")]
         public ActionResult<IEnumerable<CommodityModel>> Get()
         {
             return Ok(_commodityService.GetAll());
         }
-        
+
         [HttpGet("Search/{name}")]
         public ActionResult<CommodityModel> Search(string name)
         {
             return Ok(_commodityService.Search(name));
         }
-        
+
         [HttpGet("SearchByOrder/{orderNum}")]
         public ActionResult<IEnumerable<CommodityModel>> SearchByOrder(int orderNum)
         {
             return Ok(_commodityService.SearchByWarehouseId(orderNum));
         }
-        
+
         [HttpGet("SearchByShop/{shopId}")]
         public ActionResult<IEnumerable<CommodityModel>> SearchByShop(int shopId)
         {
             return Ok(_commodityService.SearchByShopId(shopId));
         }
-        
+
         [HttpGet("SearchByWarehouse/{warehouseId}")]
         public ActionResult<IEnumerable<CommodityModel>> SearchByWarehouse(int warehouseId)
         {

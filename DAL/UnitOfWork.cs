@@ -8,13 +8,13 @@ namespace DAL
     {
         private readonly TurnoverDbContext _context;
 
-        public UnitOfWork(TurnoverDbContext context, 
-            IRepository<Commodity> commodityRepository, 
-            IRepository<Shop> shopRepository, 
-            IRepository<Warehouse> warehouseRepository, 
-            IRepository<CommodityInShop> commodityInShopRepository, 
-            IRepository<CommodityInWarehouse> commodityInWarehoseRepository, 
-            IRepository<PurchaseOrder> purchaseOrderRepository, 
+        public UnitOfWork(TurnoverDbContext context,
+            IRepository<Commodity> commodityRepository,
+            IRepository<Shop> shopRepository,
+            IRepository<Warehouse> warehouseRepository,
+            IRepository<CommodityInShop> commodityInShopRepository,
+            IRepository<CommodityInWarehouse> commodityInWarehoseRepository,
+            IRepository<PurchaseOrder> purchaseOrderRepository,
             IRepository<OrdersCommodities> purchaseElementRepository)
         {
             _context = context;
@@ -34,7 +34,7 @@ namespace DAL
         public IRepository<CommodityInWarehouse> CommodityInWarehoseRepository { get; }
         public IRepository<PurchaseOrder> PurchaseOrderRepository { get; }
         public IRepository<OrdersCommodities> PurchaseElementRepository { get; }
-        
+
         public async Task Save()
         {
             await _context.SaveChangesAsync();

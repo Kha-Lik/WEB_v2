@@ -31,7 +31,7 @@ namespace DAL
             {
                 Id = 2, Name = "Rozetka"
             };
-            
+
             var warehouse1 = new Warehouse()
             {
                 Id = 1, Name = "First warehouse"
@@ -40,7 +40,7 @@ namespace DAL
             {
                 Id = 2, Name = "Second warehouse"
             };
-            
+
             var commodity1 = new Commodity()
             {
                 Id = 1, Name = "Bread", Price = 20
@@ -49,7 +49,7 @@ namespace DAL
             {
                 Id = 2, Name = "Wine", Price = 150
             };
-            
+
             var commInShop1 = new CommodityInShop()
             {
                 Id = 1, CommodityId = 1, ShopId = 1
@@ -58,40 +58,40 @@ namespace DAL
             {
                 Id = 2, CommodityId = 2, ShopId = 2
             };
-            
-            var commInWarehouse1 = new  CommodityInWarehouse()
+
+            var commInWarehouse1 = new CommodityInWarehouse()
             {
-                Id = 1,  CommodityId = 2, WarehouseId = 1
+                Id = 1, CommodityId = 2, WarehouseId = 1
             };
             var commInWarehouse2 = new CommodityInWarehouse()
             {
-                Id = 2,  CommodityId = 1, WarehouseId = 2
+                Id = 2, CommodityId = 1, WarehouseId = 2
             };
-            
+
             var order1 = new PurchaseOrder()
             {
-                Id = 1, Date = DateTime.Now, ShopId = 1, Name = "Sample order", Number = 1001,
+                Id = 1, Date = DateTime.Now, ShopId = 1, Name = "Sample order", Number = 1001
             };
             var order2 = new PurchaseOrder()
             {
-                Id = 2, Date = DateTime.Now, ShopId = 2, Name = "Second sample order", Number = 10011001,
+                Id = 2, Date = DateTime.Now, ShopId = 2, Name = "Second sample order", Number = 10011001
             };
-            
+
             var ordComm1 = new OrdersCommodities()
             {
-                Id = 1, CommodityId = 1,  PurchaseOrderId = 1
+                Id = 1, CommodityId = 1, PurchaseOrderId = 1
             };
             var ordComm2 = new OrdersCommodities()
             {
-                Id = 2, CommodityId = 2,  PurchaseOrderId = 1
+                Id = 2, CommodityId = 2, PurchaseOrderId = 1
             };
             var ordComm3 = new OrdersCommodities()
             {
-                Id = 3,  CommodityId = 1, PurchaseOrderId = 2
+                Id = 3, CommodityId = 1, PurchaseOrderId = 2
             };
             var ordComm4 = new OrdersCommodities()
             {
-                Id = 4,  CommodityId = 2,  PurchaseOrderId = 2
+                Id = 4, CommodityId = 2, PurchaseOrderId = 2
             };
 
             modelBuilder.Entity<Shop>().HasData(shop1, shop2);

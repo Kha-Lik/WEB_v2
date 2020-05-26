@@ -1,5 +1,5 @@
-﻿﻿using AutoMapper;
- using Microsoft.Extensions.DependencyInjection;
+﻿using AutoMapper;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace BLL.Mapper
 {
