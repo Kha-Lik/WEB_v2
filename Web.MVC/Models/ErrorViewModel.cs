@@ -1,5 +1,3 @@
-using System;
-
 namespace Web.MVC.Models
 {
     public class ErrorViewModel

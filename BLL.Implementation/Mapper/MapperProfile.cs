@@ -19,7 +19,7 @@ namespace BLL.Implementation.Mapper
                 opt =>
                     opt.MapFrom(o => o.Commodities.Select(c => new OrdersCommodities {CommodityId = c.Id})));
             CreateMap<UserRegistrationModel, User>()
-                .ForMember(u => u.UserName, 
+                .ForMember(u => u.UserName,
                     opt => opt.MapFrom(x => x.Email));
         }
     }

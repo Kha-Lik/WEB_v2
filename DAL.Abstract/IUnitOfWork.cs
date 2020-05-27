@@ -13,8 +13,8 @@ namespace DAL.Abstract
         public IRepository<CommodityInWarehouse> CommodityInWarehoseRepository { get; }
         public IRepository<PurchaseOrder> PurchaseOrderRepository { get; }
         public IRepository<OrdersCommodities> PurchaseElementRepository { get; }
-        public UserManager<User> UserManager { get;  }
-        public SignInManager<User> SignInManager { get;  }
+        public UserManager<User> UserManager { get; }
+        public SignInManager<User> SignInManager { get; }
         Task Save();
     }
 }

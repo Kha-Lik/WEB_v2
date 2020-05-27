@@ -19,6 +19,4 @@ namespace BLL.Abstract
 
         Task<User> GetUserByClaims(ClaimsPrincipal claims);
     }
-
-    
 }

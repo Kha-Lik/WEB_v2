@@ -16,7 +16,8 @@ namespace DAL
             IRepository<CommodityInShop> commodityInShopRepository,
             IRepository<CommodityInWarehouse> commodityInWarehoseRepository,
             IRepository<PurchaseOrder> purchaseOrderRepository,
-            IRepository<OrdersCommodities> purchaseElementRepository, UserManager<User> userManager, SignInManager<User> signInManager)
+            IRepository<OrdersCommodities> purchaseElementRepository, UserManager<User> userManager,
+            SignInManager<User> signInManager)
         {
             _context = context;
             CommodityRepository = commodityRepository;
@@ -37,8 +38,8 @@ namespace DAL
         public IRepository<CommodityInWarehouse> CommodityInWarehoseRepository { get; }
         public IRepository<PurchaseOrder> PurchaseOrderRepository { get; }
         public IRepository<OrdersCommodities> PurchaseElementRepository { get; }
-        public UserManager<User> UserManager { get;  }
-        public SignInManager<User> SignInManager { get;  }
+        public UserManager<User> UserManager { get; }
+        public SignInManager<User> SignInManager { get; }
 
         public async Task Save()
         {

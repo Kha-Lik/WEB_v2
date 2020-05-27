@@ -8,7 +8,8 @@ namespace DAL
 {
     public static class DalServices
     {
-        public static IServiceCollection AddDalServices(this IServiceCollection serviceCollection, string connectionString)
+        public static IServiceCollection AddDalServices(this IServiceCollection serviceCollection,
+            string connectionString)
         {
             serviceCollection.AddDbContext<TurnoverDbContext>(builder =>
                 builder.UseSqlServer(connectionString));

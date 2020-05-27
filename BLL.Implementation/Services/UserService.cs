@@ -11,8 +11,8 @@ namespace BLL.Implementation.Services
 {
     public class UserService : IUserService
     {
-        private readonly IUnitOfWork _unit;
         private readonly IMapper _mapper;
+        private readonly IUnitOfWork _unit;
 
         public UserService(IUnitOfWork unit, IMapper mapper)
         {
@@ -29,7 +29,8 @@ namespace BLL.Implementation.Services
 
         public async Task<SignInResult> Login(UserLoginModel model)
         {
-            var result = await _unit.SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+            var result =
+                await _unit.SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
 
             return result;
         }
@@ -53,6 +54,5 @@ namespace BLL.Implementation.Services
         {
             return await _unit.UserManager.GetUserAsync(claims);
         }
-
     }
 }
