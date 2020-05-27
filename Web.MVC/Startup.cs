@@ -1,13 +1,7 @@
-using BLL.Abstract;
-using BLL.Implementation.Mapper;
-using BLL.Implementation.Services;
+using BLL.Implementation;
 using DAL;
-using DAL.Abstract;
-using DAL.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,27 +20,9 @@ namespace Web.MVC
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDalServices(Configuration.GetConnectionString("TurnoverDbString"));
+            services.AddBllServices();
             services.AddControllersWithViews();
-            services.AddDbContext<TurnoverDbContext>(builder =>
-                builder.UseSqlServer(Configuration.GetConnectionString("TurnoverDbString")));
-            services.AddScoped(typeof(IRepository<>), typeof(Repository<>))
-                .AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddTransient<IOrderService, OrderService>()
-                .AddTransient<ICommodityService, CommodityService>()
-                .AddTransient<IUserService, UserService>()
-                .AddTransient<IEmailService, EmailService>();
-            services.BindMapper();
-            services.AddIdentity<User, IdentityRole>(opt =>
-                {
-                    opt.Password.RequireUppercase = false;
-                    opt.Password.RequireNonAlphanumeric = false;
-                    opt.Password.RequiredLength = 4;
-                    opt.Password.RequireDigit = false;
-                    opt.User.RequireUniqueEmail = true;
-                })
-                .AddEntityFrameworkStores<TurnoverDbContext>()
-                .AddDefaultTokenProviders();
-            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,4 +1,5 @@
 using BLL.Abstract;
+using BLL.Implementation;
 using BLL.Implementation.Mapper;
 using BLL.Implementation.Services;
 using DAL;
@@ -32,26 +33,12 @@ namespace WebAPI
                 .AddNewtonsoftJson(options =>
                     options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore
                 );
-            services.AddDbContext<TurnoverDbContext>(builder =>
-                builder.UseSqlServer(Configuration.GetConnectionString("TurnoverDbString")));
-            services.AddScoped(typeof(IRepository<>), typeof(Repository<>))
-                .AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddTransient<IOrderService, OrderService>()
-                .AddTransient<ICommodityService, CommodityService>();
-            services.BindMapper();
+            services.AddDalServices(Configuration.GetConnectionString("TurnoverDbString"));
+            services.AddBllServices();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "TurnoverWebAPI", Version = "v1"});
             });
-            services.AddIdentity<User, IdentityRole>(opt =>
-                {
-                    opt.Password.RequireUppercase = false;
-                    opt.Password.RequireNonAlphanumeric = false;
-                    opt.Password.RequiredLength = 4;
-                    opt.Password.RequireDigit = false;
-                    opt.User.RequireUniqueEmail = true;
-                })
-                .AddEntityFrameworkStores<TurnoverDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
