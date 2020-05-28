@@ -31,7 +31,7 @@ namespace WebAPI.Controllers
         [HttpGet("SearchByOrder/{orderNum}")]
         public ActionResult<IEnumerable<CommodityModel>> SearchByOrder(int orderNum)
         {
-            return Ok(_commodityService.SearchByWarehouseId(orderNum));
+            return Ok(_commodityService.Search(orderNum));
         }
 
         [HttpGet("SearchByShop/{shopId}")]

@@ -13,7 +13,8 @@ namespace DAL
         {
             serviceCollection.AddDbContext<TurnoverDbContext>(builder =>
                 builder.UseSqlServer(connectionString));
-            serviceCollection.AddScoped(typeof(IRepository<>), typeof(Repository<>))
+            serviceCollection.AddScoped(typeof(IRepository<>), 
+                    typeof(Repository<>))
                 .AddScoped<IUnitOfWork, UnitOfWork>();
             serviceCollection.AddIdentity<User, IdentityRole>(opt =>
                 {

@@ -73,37 +73,5 @@ namespace BLL.Implementation.Services
             await _unit.PurchaseOrderRepository.CreateAsync(order);
             await _unit.Save();
         }
-
-        /*public async Task MakeOrderAsync(int[] commodityIds, int shopId, string name, int number)
-        {
-            var commodities = _commodityService.GetByIdCollection(commodityIds);
-            
-            var shopEntity = await _unit.ShopRepository.GetByIdAsync(shopId);
-            var shop = _mapper.Map<ShopModel>(shopEntity);
-            
-            var orderModel = new PurchaseOrderModel
-            {
-                Name = name, Number = number, Commodities = commodities, Date = DateTime.Now, Shop = shop
-            };
-            var order = _mapper.Map<PurchaseOrder>(orderModel);
-            await _unit.PurchaseOrderRepository.CreateAsync(order);
-            await _unit.Save();
-        }*/
-
-        /*public async Task MakeOrderWithWarehouseAsync(int[] commodityIds, int warehouseId, string name, int number)
-        {
-            var commodities = _commodityService.GetByIdCollection(commodityIds);
-            
-            var warehouseEntity = await _unit.WarehouseRepository.GetByIdAsync(warehouseId);
-            var warehouse = _mapper.Map<WarehouseModel>(warehouseEntity);
-
-            var orderModel = new PurchaseOrderModel()
-            {
-                Name = name, Number = number, Commodities = commodities, Date = DateTime.Now, Warehouse = warehouse
-            };
-            var order = _mapper.Map<PurchaseOrder>(orderModel);
-            await _unit.PurchaseOrderRepository.CreateAsync(order);
-            await _unit.Save();
-        }*/
     }
 }

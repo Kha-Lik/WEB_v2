@@ -16,7 +16,8 @@ namespace DAL
             IRepository<CommodityInShop> commodityInShopRepository,
             IRepository<CommodityInWarehouse> commodityInWarehoseRepository,
             IRepository<PurchaseOrder> purchaseOrderRepository,
-            IRepository<OrdersCommodities> purchaseElementRepository, UserManager<User> userManager,
+            IRepository<OrdersCommodities> purchaseElementRepository, 
+            UserManager<User> userManager,
             SignInManager<User> signInManager)
         {
             _context = context;
