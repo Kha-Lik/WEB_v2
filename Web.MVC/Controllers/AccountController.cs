@@ -30,11 +30,11 @@ namespace Web.MVC.Controllers
         {
             if (!ModelState.IsValid) return View(model);
 
-            var result = await _userService.Register(model);
+            var userIdentityResult = await _userService.Register(model);
 
-            if (!result.Succeeded)
+            if (!userIdentityResult.Result.Succeeded)
             {
-                foreach (var error in result.Errors) ModelState.TryAddModelError(error.Code, error.Description);
+                foreach (var error in userIdentityResult.Result.Errors) ModelState.TryAddModelError(error.Code, error.Description);
 
                 return View(model);
             }
@@ -43,7 +43,7 @@ namespace Web.MVC.Controllers
             {
                 Email = model.Email, Password = model.Password, RememberMe = true
             });
-            var code = await _emailService.GenerateEmailConfirmationTokenAsync(model);
+            var code = await _emailService.GenerateEmailConfirmationTokenAsync(userIdentityResult.User);
             var callbackUrl = Url.Action(
                 "ConfirmEmail",
                 "Account",
@@ -68,7 +68,6 @@ namespace Web.MVC.Controllers
 
             var user = await GetCurrentUser();
             if (user == null) return View("Error");
-            //TODO: fix code verification
             var result = await _userService.ConfirmEmailAsync(user, code);
             if (result.Succeeded)
                 return RedirectToAction("Index", "Home");

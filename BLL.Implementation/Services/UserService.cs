@@ -20,11 +20,13 @@ namespace BLL.Implementation.Services
             _mapper = mapper;
         }
 
-        public async Task<IdentityResult> Register(UserRegistrationModel model)
+        public async Task<UserIdentityResult> Register(UserRegistrationModel model)
         {
             var user = _mapper.Map<User>(model);
-            var result = await _unit.UserManager.CreateAsync(user, model.Password);
-            return result;
+            var userIdentityResult = new UserIdentityResult();
+            userIdentityResult.Result = await _unit.UserManager.CreateAsync(user, model.Password);
+            userIdentityResult.User = user;
+            return userIdentityResult;
         }
 
         public async Task<SignInResult> Login(UserLoginModel model)

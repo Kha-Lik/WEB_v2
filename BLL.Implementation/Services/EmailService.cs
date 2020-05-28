@@ -47,10 +47,8 @@ namespace BLL.Implementation.Services
             }
         }
 
-        public async Task<string> GenerateEmailConfirmationTokenAsync(UserRegistrationModel model)
+        public async Task<string> GenerateEmailConfirmationTokenAsync(User user)
         {
-            var user = _mapper.Map<User>(model);
-
             return await _unit.UserManager.GenerateEmailConfirmationTokenAsync(user);
         }
     }

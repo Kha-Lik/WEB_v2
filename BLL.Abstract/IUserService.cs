@@ -8,7 +8,7 @@ namespace BLL.Abstract
 {
     public interface IUserService
     {
-        Task<IdentityResult> Register(UserRegistrationModel model);
+        Task<UserIdentityResult> Register(UserRegistrationModel model);
 
         Task<SignInResult> Login(UserLoginModel model);
 

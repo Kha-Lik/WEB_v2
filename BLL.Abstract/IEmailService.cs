@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using BLL.Models;
+using DAL.Entities;
 
 namespace BLL.Abstract
 {
@@ -7,6 +8,6 @@ namespace BLL.Abstract
     {
         Task SendEmailAsync(string email, string subject, string message);
 
-        Task<string> GenerateEmailConfirmationTokenAsync(UserRegistrationModel model);
+        Task<string> GenerateEmailConfirmationTokenAsync(User user);
     }
 }
